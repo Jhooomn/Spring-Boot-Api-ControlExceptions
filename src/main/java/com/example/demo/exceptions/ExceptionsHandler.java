@@ -1,5 +1,6 @@
 package com.example.demo.exceptions;
 
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,16 @@ public class ExceptionsHandler {
 		LOG.severe(ec.getMensaje());
 		LOG.severe(e.getMessage());
 	}
+	
+	public String getId() {
+		return UUID.randomUUID().toString();
+	}
 
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorCode handleException(Exception e) {
 		ErrorCode ec = new ErrorCode();
-		ec.setCodigo("901");
+		ec.setCodigo(this.getId());
 		ec.setMensaje("Error no encontrado");
 		logError(ec, e);
 		return ec;
@@ -34,7 +39,7 @@ public class ExceptionsHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorCode handleAccepted(EditadoHandlerException editado) {
 		ErrorCode ec = new ErrorCode();
-		ec.setCodigo("no-editado");
+		ec.setCodigo(this.getId());
 		ec.setMensaje(editado.getMessage());
 		logError(ec, editado);
 		return ec;
@@ -44,7 +49,7 @@ public class ExceptionsHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorCode handleNoEliminado(NoEliminadoHandleException eliminado) {
 		ErrorCode ec = new ErrorCode();
-		ec.setCodigo("no-eliminado");
+		ec.setCodigo(this.getId());
 		ec.setMensaje(eliminado.getMessage());
 		logError(ec, eliminado);
 		return ec;
