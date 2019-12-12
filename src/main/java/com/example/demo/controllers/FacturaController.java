@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Factura;
+import com.example.demo.exceptions.EditadoHandlerException;
+import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.repository.FacturaRepository;
 
 @RestController
@@ -29,7 +31,7 @@ public class FacturaController {
 
 	@GetMapping("/{id}")
 	public Factura getFactura(@PathVariable String id) {
-		return facturaRepository.findById(id).orElseThrow(() -> new RuntimeException());
+		return facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
 	}
 	
 	@PostMapping()
@@ -39,13 +41,13 @@ public class FacturaController {
 	
 	@PutMapping()
 	public void editFactura(@RequestBody Factura factura) {
-		facturaRepository.findById(factura.getId()).orElseThrow( () -> new RuntimeException());
+		facturaRepository.findById(factura.getId()).orElseThrow( () -> new EditadoHandlerException());
 		facturaRepository.save(factura);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void deleteFactura(@PathVariable String id) {
-		facturaRepository.findById(id).orElseThrow( () ->   new RuntimeException());
+		facturaRepository.findById(id).orElseThrow( () ->   new RegistroNoEncontradoException());
 		facturaRepository.deleteById(id);
 	}
 	
