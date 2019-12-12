@@ -1,9 +1,11 @@
 package com.example.demo.dto;
 
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -16,15 +18,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Productos")
-public class Producto {
+@Table(name = "Facturas")
+public class Factura {
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-	private String codigo;
-	private String nombre;
-	private Double valor;
+	private String id;
 	
+	private Double total;
+	
+	private String cliente;
+	
+	private Long telefono;
+	
+	@OneToMany(targetEntity = Item.class)
+	List<Item> item;
 	
 }
