@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Item;
+import com.example.demo.exceptions.EditadoHandlerException;
+import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.repository.ItemRepository;
 
 @RestController
@@ -29,12 +31,12 @@ public class ItemController {
 
 	@GetMapping("/{id}")
 	public Item getItem(@PathVariable String id) {
-		return itemRepository.findById(id).orElseThrow(() -> new RuntimeException());
+		return itemRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
 	}
 
 	@PutMapping()
 	public void editItem(@RequestBody Item item) {
-		itemRepository.findById(item.getId()).orElseThrow(() -> new RuntimeException());
+		itemRepository.findById(item.getId()).orElseThrow(() -> new EditadoHandlerException());
 		itemRepository.save(item);
 	}
 
@@ -45,7 +47,7 @@ public class ItemController {
 
 	@DeleteMapping("/{id}")
 	public void deleteItem(@PathVariable String id) {
-		itemRepository.findById(id).orElseThrow(() -> new RuntimeException());
+		itemRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
 		itemRepository.deleteById(id);
 	}
 
