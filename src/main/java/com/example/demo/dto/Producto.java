@@ -2,11 +2,14 @@ package com.example.demo.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@Entity
 public class Producto implements Serializable {
 
 	/**
