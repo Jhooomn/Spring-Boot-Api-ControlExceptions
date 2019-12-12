@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +18,8 @@ import lombok.NoArgsConstructor;
 public class Producto {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String codigo;
 	private String nombre;
 	private Double valor;
