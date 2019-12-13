@@ -50,7 +50,7 @@ public class FacturaController {
 		// Obtener todos los productos
 		List<Producto> productos = cargarProductos(codigos);
 		// Obtener la información completa de los items
-		cargarItems(productos, factura.getItem());//factura.setItem();
+		cargarItems(productos, factura.getItem());// factura.setItem();
 		// Obtener el valor de la Factura
 		Double total = calcularValorFactura(factura);
 		factura.setTotal(total);
