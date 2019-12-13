@@ -28,13 +28,6 @@ public class Factura extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Factura(Double total, String cliente, Long telefono, List<Item> item) {
-		super();
-		this.total = total;
-		this.cliente = cliente;
-		this.telefono = telefono;
-		this.item = item;
-	}
 
 	public Double getTotal() {
 		return total;

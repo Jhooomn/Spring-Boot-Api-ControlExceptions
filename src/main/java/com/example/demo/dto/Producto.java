@@ -18,12 +18,6 @@ public class Producto extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Producto(String nombre, Double valor) {
-		super();
-		this.nombre = nombre;
-		this.valor = valor;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}

@@ -39,13 +39,6 @@ public class BaseEntity implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public BaseEntity(String id, Date fechaCreacion, Date fechaActualizada) {
-		super();
-		this.id = id;
-		this.fechaCreacion = fechaCreacion;
-		this.fechaActualizada = fechaActualizada;
-	}
-
 	public String getId() {
 		return id;
 	}
