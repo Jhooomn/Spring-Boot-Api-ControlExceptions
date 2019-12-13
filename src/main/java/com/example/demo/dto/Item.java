@@ -8,11 +8,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
+
+
 @Entity
 @Table(name = "Items")
 public class Item {
@@ -25,7 +23,52 @@ public class Item {
 	private Double total;
 	
 	@OneToOne(targetEntity = Producto.class)
-	Producto producto;
+	private Producto producto;
+
+	public Item(String id, int cantidad, Double total, Producto producto) {
+		super();
+		this.id = id;
+		this.cantidad = cantidad;
+		this.total = total;
+		this.producto = producto;
+	}
+	
+	public Item() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+	
 	
 
 }
