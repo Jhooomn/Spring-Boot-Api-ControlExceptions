@@ -50,7 +50,7 @@ public class FacturaController {
 		// Obtener todos los productos
 		List<Producto> productos = cargarProductos(codigos);
 		// Obtener la información completa de los items
-		cargarItems(productos, factura.getItem());// factura.setItem();
+		cargarItems(productos, factura.getItem());
 		// Obtener el valor de la Factura
 		Double total = calcularValorFactura(factura);
 		factura.setTotal(total);
@@ -60,16 +60,18 @@ public class FacturaController {
 	public List<String> cargarCodigos(List<Item> items) {
 		List<String> codigos = new ArrayList<>();
 		for (Item item : items) {
-			codigos.add(item.getId());
+			codigos.add(item.getProducto().getCodigo());
+			System.out.print("cantidaD:" + item.getCantidad());
 		}
 		return codigos;
 	}
 
 	public List<Item> cargarItems(List<Producto> productos, List<Item> factura_items) {
 		List<Item> items = new ArrayList<>();
+
 		for (Producto p : productos) {
 			for (Item i : factura_items) {
-				if (p.getCodigo().equalsIgnoreCase(i.getId())) {
+				if (i.getProducto().getCodigo().equalsIgnoreCase(p.getCodigo())) {
 					i.setProducto(p);
 					i.setTotal(i.getCantidad() * p.getValor());
 					items.add(i);
@@ -88,7 +90,7 @@ public class FacturaController {
 	public Double calcularValorFactura(Factura factura) {
 		Double total = 0.0;
 		for (Item item : factura.getItem()) {
-			total = item.getTotal() + total;
+			System.out.println(item.getTotal());
 		}
 		System.out.println(total);
 		return total;

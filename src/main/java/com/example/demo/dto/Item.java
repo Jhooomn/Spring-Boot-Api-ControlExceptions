@@ -17,7 +17,7 @@ public class Item {
 	
 	@Id
 	@GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String id;
 	private int cantidad;
 	private Double total;
