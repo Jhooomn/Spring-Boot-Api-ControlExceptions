@@ -4,12 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Facturas")
@@ -27,7 +23,6 @@ public class Factura extends BaseEntity {
 	public Factura() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public Double getTotal() {
 		return total;

@@ -18,7 +18,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity implements Serializable{
+public class BaseEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -31,10 +36,10 @@ public class BaseEntity implements Serializable{
 	Date fechaCreacion;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_modificacion", nullable = false, updatable = false)
+	@Column(name = "fecha_modificacion")
 	@LastModifiedDate
 	Date fechaActualizada;
-	
+
 	public BaseEntity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -62,7 +67,5 @@ public class BaseEntity implements Serializable{
 	public void setFechaActualizada(Date fechaActualizada) {
 		this.fechaActualizada = fechaActualizada;
 	}
-	
-	
 
 }
