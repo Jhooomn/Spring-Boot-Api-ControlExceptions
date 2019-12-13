@@ -61,7 +61,6 @@ public class FacturaController {
 		List<String> codigos = new ArrayList<>();
 		for (Item item : items) {
 			codigos.add(item.getProducto().getCodigo());
-			System.out.print("cantidaD:" + item.getCantidad());
 		}
 		return codigos;
 	}
@@ -90,7 +89,7 @@ public class FacturaController {
 	public Double calcularValorFactura(Factura factura) {
 		Double total = 0.0;
 		for (Item item : factura.getItem()) {
-			System.out.println(item.getTotal());
+			total = total + item.getTotal();
 		}
 		System.out.println(total);
 		return total;
