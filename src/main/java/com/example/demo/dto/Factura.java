@@ -13,12 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Facturas")
-public class Factura {
-
-	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
-	private String id;
+public class Factura extends BaseEntity {
 
 	private Double total;
 
@@ -33,21 +28,12 @@ public class Factura {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Factura(String id, Double total, String cliente, Long telefono, List<Item> item) {
+	public Factura(Double total, String cliente, Long telefono, List<Item> item) {
 		super();
-		this.id = id;
 		this.total = total;
 		this.cliente = cliente;
 		this.telefono = telefono;
 		this.item = item;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public Double getTotal() {

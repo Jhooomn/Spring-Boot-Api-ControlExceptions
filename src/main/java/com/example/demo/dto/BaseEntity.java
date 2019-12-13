@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity {
+public class BaseEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -33,5 +34,42 @@ public class BaseEntity {
 	@Column(name = "fecha_modificacion", nullable = false, updatable = false)
 	@LastModifiedDate
 	Date fechaActualizada;
+	
+	public BaseEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public BaseEntity(String id, Date fechaCreacion, Date fechaActualizada) {
+		super();
+		this.id = id;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaActualizada = fechaActualizada;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Date getFechaActualizada() {
+		return fechaActualizada;
+	}
+
+	public void setFechaActualizada(Date fechaActualizada) {
+		this.fechaActualizada = fechaActualizada;
+	}
+	
+	
 
 }
