@@ -42,12 +42,12 @@ public class ProductoController {
 	@DeleteMapping("/{codigo}")
 	public void eliminar(@PathVariable String codigo) {
 		Producto p = productoRepository.findById(codigo).orElseThrow(() -> new NoEliminadoHandleException());
-		productoRepository.deleteById(p.getCodigo());
+		productoRepository.deleteById(p.getId());
 	}
 
 	@PutMapping
 	public void actualizar(@RequestBody Producto p) {
-		productoRepository.findById(p.getCodigo()).orElseThrow(() -> new EditadoHandlerException());
+		productoRepository.findById(p.getId()).orElseThrow(() -> new EditadoHandlerException());
 		productoRepository.save(p);
 	}
 

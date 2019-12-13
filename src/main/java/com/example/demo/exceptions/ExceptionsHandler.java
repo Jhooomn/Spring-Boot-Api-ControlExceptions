@@ -20,7 +20,7 @@ public class ExceptionsHandler {
 		LOG.severe(ec.getMensaje());
 		LOG.severe(e.getMessage());
 	}
-	
+
 	public String getId() {
 		return UUID.randomUUID().toString();
 	}
@@ -35,6 +35,37 @@ public class ExceptionsHandler {
 		return ec;
 	}
 
+	@ExceptionHandler(PrecioException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode precioException(PrecioException editado) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.getId());
+		ec.setMensaje(editado.getMessage());
+		logError(ec, editado);
+
+		return ec;
+	}
+
+	@ExceptionHandler(NombreMayusculaException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode nombreMayuscula(NombreMayusculaException nombre) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.getId());
+		ec.setMensaje(nombre.getMessage());
+		logError(ec, nombre);
+		return ec;
+	}
+
+	@ExceptionHandler(NombreCaracterException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode nombreCaracter(NombreCaracterException nombre) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.getId());
+		ec.setMensaje(nombre.getMessage());
+		logError(ec, nombre);
+		return ec;
+	}
+
 	@ExceptionHandler(EditadoHandlerException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorCode handleAccepted(EditadoHandlerException editado) {
@@ -42,6 +73,16 @@ public class ExceptionsHandler {
 		ec.setCodigo(this.getId());
 		ec.setMensaje(editado.getMessage());
 		logError(ec, editado);
+		return ec;
+	}
+
+	@ExceptionHandler(IdException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode idException(IdException id) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.getId());
+		ec.setMensaje(id.getMessage());
+		logError(ec, id);
 		return ec;
 	}
 

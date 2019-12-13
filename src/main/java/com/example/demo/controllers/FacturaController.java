@@ -60,7 +60,7 @@ public class FacturaController {
 	public List<String> cargarCodigos(List<Item> items) {
 		List<String> codigos = new ArrayList<>();
 		for (Item item : items) {
-			codigos.add(item.getProducto().getCodigo());
+			codigos.add(item.getProducto().getId());
 		}
 		return codigos;
 	}
@@ -70,7 +70,7 @@ public class FacturaController {
 
 		for (Producto p : productos) {
 			for (Item i : factura_items) {
-				if (i.getProducto().getCodigo().equalsIgnoreCase(p.getCodigo())) {
+				if (i.getProducto().getId().equalsIgnoreCase(p.getId())) {
 					i.setProducto(p);
 					i.setTotal(i.getCantidad() * p.getValor());
 					items.add(i);
