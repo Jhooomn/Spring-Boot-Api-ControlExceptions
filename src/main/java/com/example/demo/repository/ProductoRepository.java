@@ -3,12 +3,12 @@ package com.example.demo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.dto.Producto;
+import com.example.demo.dto.ProductoDto;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Producto, String> {
+public interface ProductoRepository extends JpaRepository<ProductoDto, String> {
 
-	public Producto findByNombre(String nombre);
-	public Producto findByValor(Double valor);
+	public ProductoDto findByNombre(String nombre);
+	public ProductoDto findByValor(Double valor);
 	
 }

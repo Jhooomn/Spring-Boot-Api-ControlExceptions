@@ -11,8 +11,8 @@ public class Item extends BaseEntity {
 	private int cantidad;
 	private Double total;
 
-	@OneToOne(targetEntity = Producto.class)
-	private Producto producto;
+	@OneToOne(targetEntity = ProductoDto.class)
+	private ProductoDto producto;
 
 	public Item() {
 		// TODO Auto-generated constructor stub
@@ -34,11 +34,11 @@ public class Item extends BaseEntity {
 		this.total = total;
 	}
 
-	public Producto getProducto() {
+	public ProductoDto getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	public void setProducto(ProductoDto producto) {
 		this.producto = producto;
 	}
 

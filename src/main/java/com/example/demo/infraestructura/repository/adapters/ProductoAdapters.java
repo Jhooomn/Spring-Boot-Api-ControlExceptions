@@ -11,6 +11,7 @@ import com.example.demo.shared.dominio.Id;
 @Service
 public class ProductoAdapters implements ProductoService {
 
+	
 	@Override
 	public List<Producto> buscarPorIds(List<Id> codigos) {
 		// TODO Auto-generated method stub

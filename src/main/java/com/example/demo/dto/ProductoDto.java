@@ -6,12 +6,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Productos")
-public class Producto extends BaseEntity {
+public class ProductoDto extends BaseEntity {
 
 	private String nombre;
 	private Double valor;
 
-	public Producto() {
+	public ProductoDto() {
 		// TODO Auto-generated constructor stub
 	}
 
