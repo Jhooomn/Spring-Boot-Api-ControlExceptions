@@ -61,7 +61,8 @@ public class ProductoAdapter implements ProductoService {
 
 	@Override
 	public void eliminarPorId(String id) {
-		productoRepository.deleteById(this.buscarPorId(id).getId().getValue());
+		ProductoDto producto = productoRepository.findById(id).get();
+		productoRepository.deleteById(producto.getId());
 	}
 
 }

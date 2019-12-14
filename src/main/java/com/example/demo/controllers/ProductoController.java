@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ProductoController {
 
 	@PostMapping()
 	public void crear(@RequestBody ProductoDto p) {
+		if (p.getId() == null) {
+			p.setId(UUID.randomUUID().toString());
+		}
 		productoService.guardar(productoMaper.transformarDtoParaDominio(p));
 	}
 
