@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dominio.services.ProductoService;
-import com.example.demo.dto.ProductoDto;
 import com.example.demo.exceptions.EditadoHandlerException;
 import com.example.demo.exceptions.NoEliminadoHandleException;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
+import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.repository.productoService;
 
 @RestController

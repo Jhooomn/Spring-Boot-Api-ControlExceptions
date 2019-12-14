@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.example.demo.infraestructura.dto.ProductoDto;
+
 @Entity
 @Table(name = "Items")
 public class Item extends BaseEntity {

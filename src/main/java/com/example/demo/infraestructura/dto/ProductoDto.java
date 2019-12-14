@@ -1,8 +1,10 @@
-package com.example.demo.dto;
+package com.example.demo.infraestructura.dto;
 
 import javax.persistence.Entity;
 
 import javax.persistence.Table;
+
+import com.example.demo.dto.BaseEntity;
 
 @Entity
 @Table(name = "Productos")

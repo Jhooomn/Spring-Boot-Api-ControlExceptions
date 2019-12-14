@@ -4,10 +4,21 @@ import com.example.demo.exceptions.PrecioException;
 
 public class Valor {
 
+	private final Double value;
+
 	public Valor(Double valor) {
-		if (valor <= 0) {
+		try {
+			this.value = valor;
+			if (valor <= 0) {
+				throw new PrecioException();
+			}
+		} catch (NullPointerException e) {
 			throw new PrecioException();
 		}
+	}
+
+	public Double getValue() {
+		return value;
 	}
 
 }

@@ -18,7 +18,7 @@ public class Producto {
 		return new Producto(id, nombre, valor);
 	}
 
-	private Producto(Id id, Nombre nombre, Valor valor) {
+	public Producto(Id id, Nombre nombre, Valor valor) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
