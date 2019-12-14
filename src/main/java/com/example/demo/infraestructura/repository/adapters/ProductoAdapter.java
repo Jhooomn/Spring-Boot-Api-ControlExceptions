@@ -42,8 +42,9 @@ public class ProductoAdapter implements ProductoService {
 
 	@Override
 	public void editar(Producto producto) {
-		Producto pro = this.buscarPorId(producto.getId().toString());
-		productoRepository.save(productoMapper.transformarDominioParaDto(pro));
+		this.buscarPorId(producto.getId().toString());
+		
+		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
 	}
 
 	@Override

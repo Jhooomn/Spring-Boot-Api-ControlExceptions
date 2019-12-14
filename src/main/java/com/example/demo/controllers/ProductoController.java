@@ -59,7 +59,7 @@ public class ProductoController {
 	public void actualizar(@RequestBody ProductoDto p) {
 //		productoService.findById(p.getId()).orElseThrow(() -> new EditadoHandlerException());
 //		productoService.save(p);
-		productoService.editar(productoMaper.transformarDtoParaDominio(p));
+		productoService.guardar(productoMaper.transformarDtoParaDominio(p));
 	}
 
 }
