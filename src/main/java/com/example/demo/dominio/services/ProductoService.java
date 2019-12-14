@@ -9,6 +9,8 @@ import com.example.demo.shared.dominio.Id;
 public interface ProductoService {
 	public List<Producto> buscarPorIds(List<Id> codigos);
 
+	public List<Producto> buscarTodos();
+
 	public void guardar(Producto producto);
 
 	public Producto buscarPorId(String id);

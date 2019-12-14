@@ -43,4 +43,11 @@ public class ProductoAdapter implements ProductoService {
 		return productoMapper.transformarDtoParaDominio(producto);
 	}
 
+	@Override
+	public List<Producto> buscarTodos() {
+		// TODO Auto-generated method stub
+		return productoRepository.findAll().stream().map(producto -> producto).collect(Collectors.toList()).stream()
+				.map(p -> productoMapper.transformarDtoParaDominio(p)).collect(Collectors.toList());
+	}
+
 }
