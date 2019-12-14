@@ -1,17 +1,21 @@
-package com.example.demo.dto;
+package com.example.demo.infraestructura.dto;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 
 import javax.persistence.Table;
 
+import com.example.demo.dto.BaseEntity;
+
 @Entity
 @Table(name = "Productos")
-public class Producto extends BaseEntity {
+public class ProductoDto extends BaseEntity implements Serializable {
 
 	private String nombre;
 	private Double valor;
 
-	public Producto() {
+	public ProductoDto() {
 		// TODO Auto-generated constructor stub
 	}
 

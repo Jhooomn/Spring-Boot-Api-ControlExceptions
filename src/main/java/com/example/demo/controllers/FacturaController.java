@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Factura;
 import com.example.demo.dto.Item;
-import com.example.demo.dto.Producto;
 import com.example.demo.exceptions.EditadoHandlerException;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
+import com.example.demo.infraestructura.dto.ProductoDto;
+import com.example.demo.infraestructura.repository.database.ProductoRepository;
 import com.example.demo.repository.FacturaRepository;
-import com.example.demo.repository.ProductoRepository;
 
 @RestController
 @RequestMapping("/factura")
@@ -48,7 +48,7 @@ public class FacturaController {
 		// Obtener todos los codigos de los items
 		List<String> codigos = cargarCodigos(factura.getItem());
 		// Obtener todos los productos
-		List<Producto> productos = cargarProductos(codigos);
+		List<ProductoDto> productos = cargarProductos(codigos);
 		// Obtener la información completa de los items
 		cargarItems(productos, factura.getItem());
 		// Obtener el valor de la Factura
@@ -65,10 +65,10 @@ public class FacturaController {
 		return codigos;
 	}
 
-	public List<Item> cargarItems(List<Producto> productos, List<Item> factura_items) {
+	public List<Item> cargarItems(List<ProductoDto> productos, List<Item> factura_items) {
 		List<Item> items = new ArrayList<>();
 
-		for (Producto p : productos) {
+		for (ProductoDto p : productos) {
 			for (Item i : factura_items) {
 				if (i.getProducto().getId().equalsIgnoreCase(p.getId())) {
 					i.setProducto(p);
@@ -80,7 +80,7 @@ public class FacturaController {
 		return items;
 	}
 
-	public List<Producto> cargarProductos(List<String> codigo) {
+	public List<ProductoDto> cargarProductos(List<String> codigo) {
 
 		return productoRepository.findAllById(codigo);
 

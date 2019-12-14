@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.example.demo.infraestructura.dto.ProductoDto;
+
 @Entity
 @Table(name = "Items")
 public class Item extends BaseEntity {
@@ -11,8 +13,8 @@ public class Item extends BaseEntity {
 	private int cantidad;
 	private Double total;
 
-	@OneToOne(targetEntity = Producto.class)
-	private Producto producto;
+	@OneToOne(targetEntity = ProductoDto.class)
+	private ProductoDto producto;
 
 	public Item() {
 		// TODO Auto-generated constructor stub
@@ -34,11 +36,11 @@ public class Item extends BaseEntity {
 		this.total = total;
 	}
 
-	public Producto getProducto() {
+	public ProductoDto getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	public void setProducto(ProductoDto producto) {
 		this.producto = producto;
 	}
 
