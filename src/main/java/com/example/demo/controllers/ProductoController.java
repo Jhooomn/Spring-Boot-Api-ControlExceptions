@@ -1,8 +1,10 @@
 package com.example.demo.controllers;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +22,17 @@ import com.example.demo.infraestructura.mapper.ProductoMapper;
 @RequestMapping("/producto")
 public class ProductoController {
 
+	@Autowired
 	ProductoService productoService;
 
+	@Autowired
 	ProductoMapper productoMaper;
 
 	@PostMapping()
 	public void crear(@RequestBody ProductoDto p) {
+		if (p.getId() == null) {
+			p.setId(UUID.randomUUID().toString());
+		}
 		productoService.guardar(productoMaper.transformarDtoParaDominio(p));
 	}
 
@@ -52,7 +59,7 @@ public class ProductoController {
 	public void actualizar(@RequestBody ProductoDto p) {
 //		productoService.findById(p.getId()).orElseThrow(() -> new EditadoHandlerException());
 //		productoService.save(p);
-		productoService.editar(productoMaper.transformarDtoParaDominio(p));
+		productoService.guardar(productoMaper.transformarDtoParaDominio(p));
 	}
 
 }
