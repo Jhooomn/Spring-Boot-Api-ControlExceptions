@@ -2,10 +2,13 @@ package com.example.demo.dominio.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.example.demo.dominio.model.Producto;
 import com.example.demo.shared.dominio.Id;
 
 // Productos de dominio 
+@Component
 public interface ProductoService {
 	public List<Producto> buscarPorIds(List<Id> codigos);
 

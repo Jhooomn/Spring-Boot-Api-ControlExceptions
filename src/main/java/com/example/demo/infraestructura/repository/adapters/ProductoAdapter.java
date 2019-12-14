@@ -5,6 +5,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.dominio.model.Producto;
 import com.example.demo.dominio.services.ProductoService;
@@ -14,6 +15,7 @@ import com.example.demo.infraestructura.mapper.ProductoMapper;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 import com.example.demo.shared.dominio.Id;
 
+@Service
 public class ProductoAdapter implements ProductoService {
 
 	@Autowired
