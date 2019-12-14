@@ -14,4 +14,8 @@ public interface ProductoService {
 	public void guardar(Producto producto);
 
 	public Producto buscarPorId(String id);
+
+	public void eliminarPorId(String id);
+
+	public void editar(Producto producto);
 }

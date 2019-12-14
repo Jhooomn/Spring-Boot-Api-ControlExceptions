@@ -3,9 +3,11 @@ package com.example.demo.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,15 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dominio.services.ProductoService;
 import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
-//import com.example.demo.repository.productoService;
 
 @RestController
 @RequestMapping("/producto")
 public class ProductoController {
-	@Autowired
-	private ProductoService productoService;
 
-	@Autowired
+	ProductoService productoService;
+
 	ProductoMapper productoMaper;
 
 	@PostMapping()
@@ -35,21 +35,24 @@ public class ProductoController {
 				.collect(Collectors.toList());
 	}
 
-//	@GetMapping("/{codigo}")
-//	public ProductoDto buscar(@PathVariable String codigo) {
+	@GetMapping("/{codigo}")
+	public ProductoDto buscar(@PathVariable String codigo) {
 //		return productoService.findById(codigo).orElseThrow(() -> new RegistroNoEncontradoException());
-//	}
-//
-//	@DeleteMapping("/{codigo}")
-//	public void eliminar(@PathVariable String codigo) {
+		return productoMaper.transformarDominioParaDto(productoService.buscarPorId(codigo));
+	}
+
+	@DeleteMapping("/{codigo}")
+	public void eliminar(@PathVariable String codigo) {
 //		ProductoDto p = productoService.findById(codigo).orElseThrow(() -> new NoEliminadoHandleException());
 //		productoService.deleteById(p.getId());
-//	}
-//
-//	@PutMapping
-//	public void actualizar(@RequestBody ProductoDto p) {
+		productoService.eliminarPorId(codigo);
+	}
+
+	@PutMapping
+	public void actualizar(@RequestBody ProductoDto p) {
 //		productoService.findById(p.getId()).orElseThrow(() -> new EditadoHandlerException());
 //		productoService.save(p);
-//	}
+		productoService.editar(productoMaper.transformarDtoParaDominio(p));
+	}
 
 }

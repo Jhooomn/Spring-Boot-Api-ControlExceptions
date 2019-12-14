@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.dominio.model.Producto;
 import com.example.demo.dominio.services.ProductoService;
+import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
@@ -38,6 +39,12 @@ public class ProductoAdapter implements ProductoService {
 	}
 
 	@Override
+	public void editar(Producto producto) {
+		Producto pro = this.buscarPorId(producto.getId().toString());
+		productoRepository.save(productoMapper.transformarDominioParaDto(pro));
+	}
+
+	@Override
 	public Producto buscarPorId(String id) {
 		ProductoDto producto = productoRepository.findById(id).get();
 		return productoMapper.transformarDtoParaDominio(producto);
@@ -48,6 +55,11 @@ public class ProductoAdapter implements ProductoService {
 		// TODO Auto-generated method stub
 		return productoRepository.findAll().stream().map(producto -> producto).collect(Collectors.toList()).stream()
 				.map(p -> productoMapper.transformarDtoParaDominio(p)).collect(Collectors.toList());
+	}
+
+	@Override
+	public void eliminarPorId(String id) {
+		productoRepository.deleteById(this.buscarPorId(id).getId().getValue());
 	}
 
 }
