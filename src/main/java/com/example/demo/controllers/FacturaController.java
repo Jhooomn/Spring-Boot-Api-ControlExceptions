@@ -18,8 +18,8 @@ import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.infraestructura.dto.FacturaDto;
 import com.example.demo.infraestructura.dto.ItemDto;
 import com.example.demo.infraestructura.dto.ProductoDto;
+import com.example.demo.infraestructura.repository.database.FacturaRepository;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
-import com.example.demo.repository.FacturaRepository;
 
 @RestController
 @RequestMapping("/factura")

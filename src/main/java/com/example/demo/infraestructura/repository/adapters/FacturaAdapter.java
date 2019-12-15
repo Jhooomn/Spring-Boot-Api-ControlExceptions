@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dominio.model.Factura;
 import com.example.demo.dominio.services.FacturaService;
+import com.example.demo.infraestructura.dto.FacturaDto;
 import com.example.demo.infraestructura.mapper.FacturaMapper;
 import com.example.demo.infraestructura.repository.database.FacturaRepository;
 import com.example.demo.shared.dominio.Id;
@@ -31,31 +32,32 @@ public class FacturaAdapter implements FacturaService {
 
 	@Override
 	public List<Factura> buscarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		return facturaRepository.findAll().stream().map(factura -> facturaMapper.transformarDtoParaDominio(factura))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public void guardar(Factura factura) {
-		// TODO Auto-generated method stub
-
+		FacturaDto facturadto = facturaMapper.transformarDominioParaDto(factura);
+		facturaRepository.save(facturadto);
 	}
 
 	@Override
 	public Factura buscarPorId(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		FacturaDto factura = facturaRepository.findById(id).get();
+		return facturaMapper.transformarDtoParaDominio(factura);
 	}
 
 	@Override
 	public void eliminarPorId(String id) {
-		// TODO Auto-generated method stub
-
+		FacturaDto factura = facturaRepository.findById(id).get();
+		facturaRepository.deleteById(factura.getId());
 	}
 
 	@Override
 	public void editar(Factura factura) {
-		// TODO Auto-generated method stub
+		this.buscarPorId(factura.getId().getValue());
+		facturaRepository.save(facturaMapper.transformarDominioParaDto(factura));
 
 	}
 

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.infraestructura.dto.FacturaDto;
 
 @Repository
-public interface FacturaRepository extends JpaRepository<FacturaDto, String> {
+public interface FacturaRepository extends JpaRepository<FacturaDto, String>{
 
 }
