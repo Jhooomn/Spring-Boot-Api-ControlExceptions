@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.infraestructura.dto;
 
 import java.util.List;
 
@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.demo.dto.BaseEntity;
+
 @Entity
 @Table(name = "Facturas")
-public class Factura extends BaseEntity {
+public class FacturaDto extends BaseEntity {
 
 	private Double total;
 
@@ -17,10 +19,10 @@ public class Factura extends BaseEntity {
 
 	private Long telefono;
 
-	@OneToMany(targetEntity = Item.class, cascade = CascadeType.ALL)
-	private List<Item> item;
+	@OneToMany(targetEntity = ItemDto.class, cascade = CascadeType.ALL)
+	private List<ItemDto> item;
 
-	public Factura() {
+	public FacturaDto() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -48,11 +50,11 @@ public class Factura extends BaseEntity {
 		this.telefono = telefono;
 	}
 
-	public List<Item> getItem() {
+	public List<ItemDto> getItem() {
 		return item;
 	}
 
-	public void setItem(List<Item> item) {
+	public void setItem(List<ItemDto> item) {
 		this.item = item;
 	}
 
