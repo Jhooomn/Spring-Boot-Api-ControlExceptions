@@ -1,5 +1,7 @@
 package com.example.demo.infraestructura.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -8,8 +10,11 @@ import com.example.demo.dto.BaseEntity;
 
 @Entity
 @Table(name = "Items")
-public class ItemDto extends BaseEntity {
-
+public class ItemDto extends BaseEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cantidad;
 	private Double total;
 

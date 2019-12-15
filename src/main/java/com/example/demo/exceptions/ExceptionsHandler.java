@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.demo.dto.ErrorCode;
 
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+
 @RestControllerAdvice
 public class ExceptionsHandler {
 
@@ -32,6 +34,29 @@ public class ExceptionsHandler {
 		ec.setCodigo(this.getId());
 		ec.setMensaje("Error no encontrado");
 		logError(ec, e);
+		return ec;
+	}
+
+	@ExceptionHandler(ValorException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode valorException(ValorException e) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.getId());
+		ec.setMensaje(e.getMessage());
+		logError(ec, e);
+		return ec;
+	}
+
+	@ExceptionHandler(TotalException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode totalException(TotalException e) {
+		ErrorCode ec = new ErrorCode();
+
+		ec.setCodigo(this.getId());
+		ec.setMensaje(e.getMessage());
+
+		logError(ec, e);
+
 		return ec;
 	}
 

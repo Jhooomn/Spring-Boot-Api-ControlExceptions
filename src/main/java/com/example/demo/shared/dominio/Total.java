@@ -1,5 +1,7 @@
 package com.example.demo.shared.dominio;
 
+import com.example.demo.exceptions.TotalException;
+
 public class Total {
 
 	private final Double total;
@@ -9,11 +11,11 @@ public class Total {
 			this.total = valor;
 
 			if (valor < 0) {
-				throw new RuntimeException();
+				throw new TotalException();
 			}
 
 		} catch (NullPointerException e) {
-			throw new RuntimeException();
+			throw new TotalException();
 		}
 	}
 
