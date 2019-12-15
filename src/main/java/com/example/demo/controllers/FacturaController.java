@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Factura;
-import com.example.demo.dto.Item;
 import com.example.demo.exceptions.EditadoHandlerException;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
+import com.example.demo.infraestructura.dto.ItemDto;
 import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 import com.example.demo.repository.FacturaRepository;
@@ -57,19 +57,19 @@ public class FacturaController {
 		facturaRepository.save(factura);
 	}
 
-	public List<String> cargarCodigos(List<Item> items) {
+	public List<String> cargarCodigos(List<ItemDto> items) {
 		List<String> codigos = new ArrayList<>();
-		for (Item item : items) {
+		for (ItemDto item : items) {
 			codigos.add(item.getProducto().getId());
 		}
 		return codigos;
 	}
 
-	public List<Item> cargarItems(List<ProductoDto> productos, List<Item> factura_items) {
-		List<Item> items = new ArrayList<>();
+	public List<ItemDto> cargarItems(List<ProductoDto> productos, List<ItemDto> factura_items) {
+		List<ItemDto> items = new ArrayList<>();
 
 		for (ProductoDto p : productos) {
-			for (Item i : factura_items) {
+			for (ItemDto i : factura_items) {
 				if (i.getProducto().getId().equalsIgnoreCase(p.getId())) {
 					i.setProducto(p);
 					i.setTotal(i.getCantidad() * p.getValor());
@@ -88,7 +88,7 @@ public class FacturaController {
 
 	public Double calcularValorFactura(Factura factura) {
 		Double total = 0.0;
-		for (Item item : factura.getItem()) {
+		for (ItemDto item : factura.getItem()) {
 			total = total + item.getTotal();
 		}
 		System.out.println(total);
