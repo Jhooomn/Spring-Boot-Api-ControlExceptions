@@ -43,7 +43,7 @@ public class ProductoAdapter implements ProductoService {
 	@Override
 	public void editar(Producto producto) {
 		this.buscarPorId(producto.getId().toString());
-		
+
 		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
 	}
 

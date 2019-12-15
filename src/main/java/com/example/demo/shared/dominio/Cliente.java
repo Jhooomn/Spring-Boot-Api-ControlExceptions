@@ -2,7 +2,7 @@ package com.example.demo.shared.dominio;
 
 public class Cliente {
 
-	private static String nombre;
+	private final String nombre;
 
 	public Cliente(String valor) {
 
@@ -18,7 +18,7 @@ public class Cliente {
 
 	}
 
-	public static String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
