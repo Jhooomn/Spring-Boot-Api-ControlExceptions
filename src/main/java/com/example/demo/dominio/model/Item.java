@@ -9,16 +9,18 @@ public class Item {
 	private final Id id;
 	private final Cantidad cantidad;
 	private final Total total;
+	private final Producto producto;
 
-	public static Item of(Id id, Cantidad cantidad, Total total) {
-		return new Item(id, cantidad, total);
+	public static Item of(Id id, Cantidad cantidad, Total total, Producto producto) {
+		return new Item(id, cantidad, total, producto);
 	}
 
-	public Item(Id id, Cantidad cantidad, Total total) {
+	public Item(Id id, Cantidad cantidad, Total total, Producto producto) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
 		this.total = total;
+		this.producto = producto;
 	}
 
 	public Id getId() {
@@ -32,5 +34,11 @@ public class Item {
 	public Total getTotal() {
 		return total;
 	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	
 
 }
