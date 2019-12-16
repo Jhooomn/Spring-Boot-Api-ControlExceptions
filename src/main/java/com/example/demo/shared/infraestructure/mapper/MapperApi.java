@@ -10,11 +10,11 @@ public interface MapperApi<I, O> {
 
 	public O apitransformarDtoParaDominio(I i);
 
-	public default List<O> transformarListaDtoParaDominio(List<I> instancias) {
+	public default List<O> apitransformarListaDtoParaDominio(List<I> instancias) {
 		return instancias.stream().map(o -> apitransformarDtoParaDominio(o)).collect(Collectors.toList());
 	}
 
-	public default List<I> transformarListDominioParaDto(List<O> instancias) {
+	public default List<I> apitransformarListDominioParaDto(List<O> instancias) {
 		return instancias.stream().map(i -> apitransformarDominioParaDto(i)).collect(Collectors.toList());
 	}
 }
