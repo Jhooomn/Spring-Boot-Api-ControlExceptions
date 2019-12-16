@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dominio.services.FacturaService;
 import com.example.demo.exceptions.EditadoHandlerException;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.infraestructura.dto.FacturaDto;
 import com.example.demo.infraestructura.dto.ItemDto;
 import com.example.demo.infraestructura.dto.ProductoDto;
+import com.example.demo.infraestructura.mapper.FacturaMapper;
 import com.example.demo.infraestructura.repository.database.FacturaRepository;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 
@@ -31,14 +34,22 @@ public class FacturaController {
 	@Autowired
 	ProductoRepository productoRepository;
 
+	@Autowired
+	FacturaService facturaService;
+	@Autowired
+	FacturaMapper facturaMapper;
+
 	@GetMapping()
 	public List<FacturaDto> getFacturas() {
-		return facturaRepository.findAll();
+//		return facturaRepository.findAll();
+		return facturaService.buscarTodos().stream().map(factura -> facturaMapper.transformarDominioParaDto(factura))
+				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
 	public FacturaDto getFactura(@PathVariable String id) {
-		return facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
+//		return facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
+		return facturaMapper.transformarDominioParaDto(facturaService.buscarPorId(id));
 	}
 
 	// ***********************************************************************************************
@@ -105,8 +116,9 @@ public class FacturaController {
 
 	@DeleteMapping("/{id}")
 	public void deleteFactura(@PathVariable String id) {
-		facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
-		facturaRepository.deleteById(id);
+//		facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
+//		facturaRepository.deleteById(id);
+		facturaService.eliminarPorId(id);
 	}
 
 	@DeleteMapping

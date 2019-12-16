@@ -26,8 +26,6 @@ public class ProductoAdapter implements ProductoService {
 
 	@Override
 	public List<Producto> buscarPorIds(List<Id> codigos) {
-		// TODO Auto-generated method stub
-
 		return productoRepository
 				.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())).stream()
 				.map(producto -> productoMapper.transformarDtoParaDominio(producto)).collect(Collectors.toList());
@@ -53,9 +51,7 @@ public class ProductoAdapter implements ProductoService {
 
 	@Override
 	public List<Producto> buscarTodos() {
-		// TODO Auto-generated method stub
-		return productoRepository.findAll().stream().map(producto -> producto).collect(Collectors.toList()).stream()
-				.map(p -> productoMapper.transformarDtoParaDominio(p)).collect(Collectors.toList());
+		return productoMapper.transformarListaDtoParaDominio(productoRepository.findAll());
 	}
 
 	@Override

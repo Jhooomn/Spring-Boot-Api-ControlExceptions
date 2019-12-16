@@ -1,13 +1,11 @@
 package com.example.demo.infraestructura.mapper;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dominio.model.Factura;
-import com.example.demo.dominio.model.Item;
 import com.example.demo.infraestructura.dto.FacturaDto;
 import com.example.demo.shared.dominio.Cliente;
 import com.example.demo.shared.dominio.Id;
