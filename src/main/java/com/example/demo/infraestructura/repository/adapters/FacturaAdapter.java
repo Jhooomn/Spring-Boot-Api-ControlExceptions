@@ -27,25 +27,25 @@ public class FacturaAdapter implements FacturaService {
 
 		return facturaRepository
 				.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())).stream()
-				.map(factura -> facturaMapper.transformarDtoParaDominio(factura)).collect(Collectors.toList());
+				.map(factura -> facturaMapper.apitransformarDtoParaDominio(factura)).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Factura> buscarTodos() {
-		return facturaRepository.findAll().stream().map(factura -> facturaMapper.transformarDtoParaDominio(factura))
+		return facturaRepository.findAll().stream().map(factura -> facturaMapper.apitransformarDtoParaDominio(factura))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public void guardar(Factura factura) {
-		FacturaDto facturadto = facturaMapper.transformarDominioParaDto(factura);
+		FacturaDto facturadto = facturaMapper.apitransformarDominioParaDto(factura);
 		facturaRepository.save(facturadto);
 	}
 
 	@Override
 	public Factura buscarPorId(String id) {
 		FacturaDto factura = facturaRepository.findById(id).get();
-		return facturaMapper.transformarDtoParaDominio(factura);
+		return facturaMapper.apitransformarDtoParaDominio(factura);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class FacturaAdapter implements FacturaService {
 	@Override
 	public void editar(Factura factura) {
 		this.buscarPorId(factura.getId().getValue());
-		facturaRepository.save(facturaMapper.transformarDominioParaDto(factura));
+		facturaRepository.save(facturaMapper.apitransformarDominioParaDto(factura));
 
 	}
 

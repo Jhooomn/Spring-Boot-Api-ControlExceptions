@@ -12,13 +12,13 @@ import com.example.demo.shared.dominio.Id;
 import com.example.demo.shared.dominio.Nombre;
 import com.example.demo.shared.dominio.Total;
 import com.example.demo.shared.dominio.Valor;
-import com.example.demo.shared.infraestructure.mapper.MapperApiRest;
+import com.example.demo.shared.infraestructure.mapper.MapperApi;
 
 @Component
-public class ItemMapper implements MapperApiRest<ItemDto, Item> {
+public class ItemMapper implements MapperApi<ItemDto, Item> {
 
 	@Override
-	public ItemDto transformarDominioParaDto(Item o) {
+	public ItemDto apitransformarDominioParaDto(Item o) {
 
 		ItemDto item = new ItemDto();
 		ProductoDto producto = new ProductoDto();
@@ -36,7 +36,7 @@ public class ItemMapper implements MapperApiRest<ItemDto, Item> {
 	}
 
 	@Override
-	public Item transformarDtoParaDominio(ItemDto i) {
+	public Item apitransformarDtoParaDominio(ItemDto i) {
 		return Item.of(new Id(i.getId()), new Cantidad(i.getCantidad()), new Total(i.getTotal()), Producto
 				.of(new Id(i.getId()), new Nombre(i.getProducto().getNombre()), new Valor(i.getProducto().getValor())));
 	}

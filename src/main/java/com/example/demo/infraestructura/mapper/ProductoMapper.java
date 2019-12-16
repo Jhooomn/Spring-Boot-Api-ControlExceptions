@@ -7,13 +7,13 @@ import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.shared.dominio.Id;
 import com.example.demo.shared.dominio.Nombre;
 import com.example.demo.shared.dominio.Valor;
-import com.example.demo.shared.infraestructure.mapper.MapperApiRest;
+import com.example.demo.shared.infraestructure.mapper.MapperApi;
 
 @Component
-public class ProductoMapper implements MapperApiRest<ProductoDto, Producto> {
+public class ProductoMapper implements MapperApi<ProductoDto, Producto> {
 
 	@Override
-	public ProductoDto transformarDominioParaDto(Producto o) {
+	public ProductoDto apitransformarDominioParaDto(Producto o) {
 		ProductoDto producto = new ProductoDto();
 
 		producto.setId(o.getId().getValue());
@@ -24,7 +24,7 @@ public class ProductoMapper implements MapperApiRest<ProductoDto, Producto> {
 	}
 
 	@Override
-	public Producto transformarDtoParaDominio(ProductoDto i) {
+	public Producto apitransformarDtoParaDominio(ProductoDto i) {
 		return Producto.of(new Id(i.getId()), new Nombre(i.getNombre()), new Valor(i.getValor()));
 	}
 

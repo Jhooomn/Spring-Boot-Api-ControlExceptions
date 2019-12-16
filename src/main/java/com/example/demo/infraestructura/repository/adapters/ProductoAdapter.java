@@ -26,43 +26,37 @@ public class ProductoAdapter implements ProductoService {
 
 	@Override
 	public List<Producto> buscarPorIds(List<Id> codigos) {
-		// TODO Auto-generated method stub
-
 		return productoRepository
 				.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())).stream()
-				.map(producto -> productoMapper.transformarDtoParaDominio(producto)).collect(Collectors.toList());
+				.map(producto -> productoMapper.apitransformarDtoParaDominio(producto)).collect(Collectors.toList());
 	}
 
 	@Override
 	public void guardar(Producto producto) {
 		// TODO Auto-generated method stub
-		ProductoDto productodto = productoMapper.transformarDominioParaDto(producto);
-		productoRepository.save(productodto);
+		productoRepository.save(productoMapper.apitransformarDominioParaDto(producto));
 	}
 
 	@Override
 	public void editar(Producto producto) {
 		this.buscarPorId(producto.getId().toString());
-
-		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
+		productoRepository.save(productoMapper.apitransformarDominioParaDto(producto));
 	}
 
 	@Override
 	public Producto buscarPorId(String id) {
-		ProductoDto producto = productoRepository.findById(id).get();
-		return productoMapper.transformarDtoParaDominio(producto);
+		return productoMapper.apitransformarDtoParaDominio(
+				productoRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException()));
 	}
 
 	@Override
 	public List<Producto> buscarTodos() {
-		// TODO Auto-generated method stub
-		return productoRepository.findAll().stream().map(producto -> producto).collect(Collectors.toList()).stream()
-				.map(p -> productoMapper.transformarDtoParaDominio(p)).collect(Collectors.toList());
+		return productoMapper.transformarListaDtoParaDominio(productoRepository.findAll());
 	}
 
 	@Override
 	public void eliminarPorId(String id) {
-		ProductoDto producto = productoRepository.findById(id).get();
+		ProductoDto producto = productoRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
 		productoRepository.deleteById(producto.getId());
 	}
 
