@@ -11,10 +11,10 @@ import com.example.demo.shared.dominio.Cliente;
 import com.example.demo.shared.dominio.Id;
 import com.example.demo.shared.dominio.Telefono;
 import com.example.demo.shared.dominio.Total;
-import com.example.demo.shared.infraestructure.mapper.MapperApiRest;
+import com.example.demo.shared.infraestructure.mapper.MapperApi;
 
 @Component
-public class FacturaMapper implements MapperApiRest<FacturaDto, Factura> {
+public class FacturaMapper implements MapperApi<FacturaDto, Factura> {
 
 	@Autowired
 	ItemMapper itemMaper;

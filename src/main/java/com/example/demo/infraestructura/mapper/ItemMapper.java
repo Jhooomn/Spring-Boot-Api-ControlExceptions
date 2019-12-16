@@ -12,10 +12,10 @@ import com.example.demo.shared.dominio.Id;
 import com.example.demo.shared.dominio.Nombre;
 import com.example.demo.shared.dominio.Total;
 import com.example.demo.shared.dominio.Valor;
-import com.example.demo.shared.infraestructure.mapper.MapperApiRest;
+import com.example.demo.shared.infraestructure.mapper.MapperApi;
 
 @Component
-public class ItemMapper implements MapperApiRest<ItemDto, Item> {
+public class ItemMapper implements MapperApi<ItemDto, Item> {
 
 	@Override
 	public ItemDto transformarDominioParaDto(Item o) {

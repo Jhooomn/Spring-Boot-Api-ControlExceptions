@@ -3,7 +3,7 @@ package com.example.demo.shared.infraestructure.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface MapperApiRest<I, O> {
+public interface MapperApi<I, O> {
 
 	// Transformar
 	public I transformarDominioParaDto(O o);

@@ -7,10 +7,10 @@ import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.shared.dominio.Id;
 import com.example.demo.shared.dominio.Nombre;
 import com.example.demo.shared.dominio.Valor;
-import com.example.demo.shared.infraestructure.mapper.MapperApiRest;
+import com.example.demo.shared.infraestructure.mapper.MapperApi;
 
 @Component
-public class ProductoMapper implements MapperApiRest<ProductoDto, Producto> {
+public class ProductoMapper implements MapperApi<ProductoDto, Producto> {
 
 	@Override
 	public ProductoDto transformarDominioParaDto(Producto o) {
