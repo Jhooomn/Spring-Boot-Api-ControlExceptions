@@ -33,19 +33,19 @@ public class ProductoController {
 		if (p.getId() == null) {
 			p.setId(UUID.randomUUID().toString());
 		}
-		productoService.guardar(productoMaper.transformarDtoParaDominio(p));
+		productoService.guardar(productoMaper.apitransformarDtoParaDominio(p));
 	}
 
 	@GetMapping()
 	public List<ProductoDto> listar() {
-		return productoService.buscarTodos().stream().map(producto -> productoMaper.transformarDominioParaDto(producto))
+		return productoService.buscarTodos().stream().map(producto -> productoMaper.apitransformarDominioParaDto(producto))
 				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/{codigo}")
 	public ProductoDto buscar(@PathVariable String codigo) {
 //		return productoService.findById(codigo).orElseThrow(() -> new RegistroNoEncontradoException());
-		return productoMaper.transformarDominioParaDto(productoService.buscarPorId(codigo));
+		return productoMaper.apitransformarDominioParaDto(productoService.buscarPorId(codigo));
 	}
 
 	@DeleteMapping("/{codigo}")
@@ -59,7 +59,7 @@ public class ProductoController {
 	public void actualizar(@RequestBody ProductoDto p) {
 //		productoService.findById(p.getId()).orElseThrow(() -> new EditadoHandlerException());
 //		productoService.save(p);
-		productoService.guardar(productoMaper.transformarDtoParaDominio(p));
+		productoService.guardar(productoMaper.apitransformarDtoParaDominio(p));
 	}
 
 }

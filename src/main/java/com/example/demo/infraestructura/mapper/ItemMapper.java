@@ -18,7 +18,7 @@ import com.example.demo.shared.infraestructure.mapper.MapperApi;
 public class ItemMapper implements MapperApi<ItemDto, Item> {
 
 	@Override
-	public ItemDto transformarDominioParaDto(Item o) {
+	public ItemDto apitransformarDominioParaDto(Item o) {
 
 		ItemDto item = new ItemDto();
 		ProductoDto producto = new ProductoDto();
@@ -36,7 +36,7 @@ public class ItemMapper implements MapperApi<ItemDto, Item> {
 	}
 
 	@Override
-	public Item transformarDtoParaDominio(ItemDto i) {
+	public Item apitransformarDtoParaDominio(ItemDto i) {
 		return Item.of(new Id(i.getId()), new Cantidad(i.getCantidad()), new Total(i.getTotal()), Producto
 				.of(new Id(i.getId()), new Nombre(i.getProducto().getNombre()), new Valor(i.getProducto().getValor())));
 	}

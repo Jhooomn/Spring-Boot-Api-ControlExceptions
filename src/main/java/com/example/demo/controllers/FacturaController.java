@@ -42,14 +42,14 @@ public class FacturaController {
 	@GetMapping()
 	public List<FacturaDto> getFacturas() {
 //		return facturaRepository.findAll();
-		return facturaService.buscarTodos().stream().map(factura -> facturaMapper.transformarDominioParaDto(factura))
+		return facturaService.buscarTodos().stream().map(factura -> facturaMapper.apitransformarDominioParaDto(factura))
 				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
 	public FacturaDto getFactura(@PathVariable String id) {
 //		return facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
-		return facturaMapper.transformarDominioParaDto(facturaService.buscarPorId(id));
+		return facturaMapper.apitransformarDominioParaDto(facturaService.buscarPorId(id));
 	}
 
 	// ***********************************************************************************************

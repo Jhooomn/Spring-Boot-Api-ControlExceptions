@@ -28,24 +28,24 @@ public class ProductoAdapter implements ProductoService {
 	public List<Producto> buscarPorIds(List<Id> codigos) {
 		return productoRepository
 				.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())).stream()
-				.map(producto -> productoMapper.transformarDtoParaDominio(producto)).collect(Collectors.toList());
+				.map(producto -> productoMapper.apitransformarDtoParaDominio(producto)).collect(Collectors.toList());
 	}
 
 	@Override
 	public void guardar(Producto producto) {
 		// TODO Auto-generated method stub
-		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
+		productoRepository.save(productoMapper.apitransformarDominioParaDto(producto));
 	}
 
 	@Override
 	public void editar(Producto producto) {
 		this.buscarPorId(producto.getId().toString());
-		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
+		productoRepository.save(productoMapper.apitransformarDominioParaDto(producto));
 	}
 
 	@Override
 	public Producto buscarPorId(String id) {
-		return productoMapper.transformarDtoParaDominio(
+		return productoMapper.apitransformarDtoParaDominio(
 				productoRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException()));
 	}
 
