@@ -38,14 +38,12 @@ public class FacturaAdapter implements FacturaService {
 
 	@Override
 	public void guardar(Factura factura) {
-		FacturaDto facturadto = facturaMapper.apitransformarDominioParaDto(factura);
-		facturaRepository.save(facturadto);
+		facturaRepository.save(facturaMapper.apitransformarDominioParaDto(factura));
 	}
 
 	@Override
 	public Factura buscarPorId(String id) {
-		FacturaDto factura = facturaRepository.findById(id).get();
-		return facturaMapper.apitransformarDtoParaDominio(factura);
+		return facturaMapper.apitransformarDtoParaDominio(facturaRepository.findById(id).get());
 	}
 
 	@Override
