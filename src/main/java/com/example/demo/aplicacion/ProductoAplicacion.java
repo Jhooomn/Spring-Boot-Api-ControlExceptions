@@ -24,25 +24,18 @@ public class ProductoAplicacion {
 	}
 
 	public List<Producto> listar() {
-//		return productoService.buscarTodos().stream()
-//				.map(producto -> productoMaper.apitransformarDominioParaDto(producto)).collect(Collectors.toList());
 		return productoService.buscarTodos();
 	}
 
 	public Producto buscar(String codigo) {
-//		return productoService.findById(codigo).orElseThrow(() -> new RegistroNoEncontradoException());
 		return productoService.buscarPorId(codigo);
 	}
 
 	public void eliminar(String codigo) {
-//		ProductoDto p = productoService.findById(codigo).orElseThrow(() -> new NoEliminadoHandleException());
-//		productoService.deleteById(p.getId());
 		productoService.eliminarPorId(codigo);
 	}
 
 	public void actualizar(Producto p) {
-//		productoService.findById(p.getId()).orElseThrow(() -> new EditadoHandlerException());
-//		productoService.save(p);
 		productoService.editar(p);
 	}
 

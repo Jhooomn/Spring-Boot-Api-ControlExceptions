@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemRest {
 
+	private String id;
 	private int cantidad;
 	private Double total;
 	private ProductoRest producto;

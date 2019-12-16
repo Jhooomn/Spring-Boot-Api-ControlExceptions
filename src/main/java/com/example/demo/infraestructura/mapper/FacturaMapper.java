@@ -26,7 +26,7 @@ public class FacturaMapper implements MapperApi<FacturaDto, Factura> {
 
 		factura.setId(o.getId().getValue());
 		factura.setCliente(o.getCliente().getNombre());
-		factura.setItem(o.getItem().stream().map(item -> itemMaper.apitransformarDominioParaDto(item))
+		factura.setItem(o.getItem().stream().map(item -> itemMaper.transformarDominioParaDto(item))
 				.collect(Collectors.toList()));
 		factura.setTelefono(o.getTelefono().getTelefono());
 		factura.setTotal(o.getTotal().getTotal());
@@ -37,11 +37,10 @@ public class FacturaMapper implements MapperApi<FacturaDto, Factura> {
 	@Override
 	public Factura apitransformarDtoParaDominio(FacturaDto i) {
 
-		Factura.of(new Id(i.getId()), new Total(i.getTotal()), new Cliente(i.getCliente()),
+		return Factura.of(new Id(i.getId()), new Total(i.getTotal()), new Cliente(i.getCliente()),
 				new Telefono(i.getTelefono()), i.getItem().stream()
-						.map(item -> itemMaper.apitransformarDtoParaDominio(item)).collect(Collectors.toList()));
+						.map(item -> itemMaper.transformarDtoParaDominio(item)).collect(Collectors.toList()));
 
-		return null;
 	}
 
 }
