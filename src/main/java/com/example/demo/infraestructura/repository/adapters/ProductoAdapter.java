@@ -36,14 +36,12 @@ public class ProductoAdapter implements ProductoService {
 	@Override
 	public void guardar(Producto producto) {
 		// TODO Auto-generated method stub
-		ProductoDto productodto = productoMapper.transformarDominioParaDto(producto);
-		productoRepository.save(productodto);
+		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
 	}
 
 	@Override
 	public void editar(Producto producto) {
 		this.buscarPorId(producto.getId().toString());
-
 		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
 	}
 
