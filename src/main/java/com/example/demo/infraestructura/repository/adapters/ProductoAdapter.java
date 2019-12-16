@@ -49,8 +49,8 @@ public class ProductoAdapter implements ProductoService {
 
 	@Override
 	public Producto buscarPorId(String id) {
-		ProductoDto producto = productoRepository.findById(id).get();
-		return productoMapper.transformarDtoParaDominio(producto);
+		return productoMapper.transformarDtoParaDominio(
+				productoRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException()));
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class ProductoAdapter implements ProductoService {
 
 	@Override
 	public void eliminarPorId(String id) {
-		ProductoDto producto = productoRepository.findById(id).get();
+		ProductoDto producto = productoRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
 		productoRepository.deleteById(producto.getId());
 	}
 

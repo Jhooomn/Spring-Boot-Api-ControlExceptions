@@ -27,6 +27,16 @@ public class ExceptionsHandler {
 		return UUID.randomUUID().toString();
 	}
 
+	@ExceptionHandler(RegistroNoEncontradoException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode registroException(RegistroNoEncontradoException e) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.getId());
+		ec.setMensaje(e.getMessage());
+		logError(ec, e);
+		return ec;
+	}
+
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorCode handleException(Exception e) {
