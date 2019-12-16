@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.example.demo.dto.BaseEntity;
-
 @Entity
 @Table(name = "Facturas")
 public class FacturaDto extends BaseEntity {

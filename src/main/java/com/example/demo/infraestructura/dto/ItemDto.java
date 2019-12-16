@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.example.demo.dto.BaseEntity;
-
 @Entity
 @Table(name = "Items")
 public class ItemDto extends BaseEntity implements Serializable {
