@@ -28,30 +28,31 @@ public class ProductoAdapter implements ProductoService {
 	public List<Producto> buscarPorIds(List<Id> codigos) {
 		return productoRepository
 				.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())).stream()
-				.map(producto -> productoMapper.apitransformarDtoParaDominio(producto)).collect(Collectors.toList());
+				.map(producto -> productoMapper.transformarDtoParaDominio(producto)).collect(Collectors.toList());
 	}
 
 	@Override
 	public void guardar(Producto producto) {
 		// TODO Auto-generated method stub
-		productoRepository.save(productoMapper.apitransformarDominioParaDto(producto));
+		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
 	}
 
 	@Override
 	public void editar(Producto producto) {
-		this.buscarPorId(producto.getId().toString());
-		productoRepository.save(productoMapper.apitransformarDominioParaDto(producto));
+		this.buscarPorId(producto.getId().getValue());
+		productoRepository.save(productoMapper.transformarDominioParaDto(producto));
 	}
 
 	@Override
 	public Producto buscarPorId(String id) {
-		return productoMapper.apitransformarDtoParaDominio(
+		return productoMapper.transformarDtoParaDominio(
 				productoRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException()));
 	}
 
 	@Override
 	public List<Producto> buscarTodos() {
-		return productoMapper.transformarListaDtoParaDominio(productoRepository.findAll());
+		return productoRepository.findAll().stream().map(producto -> productoMapper.transformarDtoParaDominio(producto))
+				.collect(Collectors.toList());
 	}
 
 	@Override

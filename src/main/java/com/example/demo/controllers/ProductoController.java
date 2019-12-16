@@ -2,10 +2,8 @@ package com.example.demo.controllers;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dominio.services.ProductoService;
-import com.example.demo.infraestructura.dto.ProductoDto;
+import com.example.demo.aplicacion.ProductoAplicacion;
+import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 
 @RestController
@@ -23,43 +21,32 @@ import com.example.demo.infraestructura.mapper.ProductoMapper;
 public class ProductoController {
 
 	@Autowired
-	ProductoService productoService;
+	ProductoAplicacion productoAplicacion;
 
 	@Autowired
-	ProductoMapper productoMaper;
+	ProductoMapper productoMapper;
 
-	@PostMapping()
-	public void crear(@RequestBody ProductoDto p) {
-		if (p.getId() == null) {
-			p.setId(UUID.randomUUID().toString());
+	@GetMapping
+	public List<ProductoRest> getProductos() {
+		return productoMapper.apitransformarListDominioParaDto(productoAplicacion.listar());
+	}
+
+	@GetMapping("/{id}")
+	public ProductoRest getProducto(@PathVariable String id) {
+		return productoMapper.apitransformarDominioParaDto(productoAplicacion.buscar(id));
+	}
+
+	@PostMapping
+	public void save(@RequestBody ProductoRest producto) {
+		if (producto.getId() == null) {
+			producto.setId(UUID.randomUUID().toString());
 		}
-		productoService.guardar(productoMaper.apitransformarDtoParaDominio(p));
-	}
-
-	@GetMapping()
-	public List<ProductoDto> listar() {
-		return productoService.buscarTodos().stream().map(producto -> productoMaper.apitransformarDominioParaDto(producto))
-				.collect(Collectors.toList());
-	}
-
-	@GetMapping("/{codigo}")
-	public ProductoDto buscar(@PathVariable String codigo) {
-//		return productoService.findById(codigo).orElseThrow(() -> new RegistroNoEncontradoException());
-		return productoMaper.apitransformarDominioParaDto(productoService.buscarPorId(codigo));
-	}
-
-	@DeleteMapping("/{codigo}")
-	public void eliminar(@PathVariable String codigo) {
-//		ProductoDto p = productoService.findById(codigo).orElseThrow(() -> new NoEliminadoHandleException());
-//		productoService.deleteById(p.getId());
-		productoService.eliminarPorId(codigo);
+		productoAplicacion.crear(productoMapper.apitransformarDtoParaDominio(producto));
 	}
 
 	@PutMapping
-	public void actualizar(@RequestBody ProductoDto p) {
-//		productoService.findById(p.getId()).orElseThrow(() -> new EditadoHandlerException());
-//		productoService.save(p);
-		productoService.guardar(productoMaper.apitransformarDtoParaDominio(p));
+	public void edit(@RequestBody ProductoRest producto) {
+		productoAplicacion.actualizar(productoMapper.apitransformarDtoParaDominio(producto));
 	}
 
 }
