@@ -32,8 +32,7 @@ public class FacturaAdapter implements FacturaService {
 
 	@Override
 	public List<Factura> buscarTodos() {
-		return facturaRepository.findAll().stream().map(factura -> facturaMapper.apitransformarDtoParaDominio(factura))
-				.collect(Collectors.toList());
+		return facturaMapper.apitransformarListaDtoParaDominio(facturaRepository.findAll());
 	}
 
 	@Override
