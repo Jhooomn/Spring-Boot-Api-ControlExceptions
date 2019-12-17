@@ -63,7 +63,7 @@ public class FacturaAplicacion {
 //		factura.setItem(this.getITemId(factura.getItem()));
 
 		FacturaRest fa = factura;
-
+		fa.setId(UUID.randomUUID().toString());
 		fa.setItem(this.cargarItems(fa.getItem()));
 		fa.setTotal(this.calcularFactura(fa.getItem()));
 
@@ -71,17 +71,19 @@ public class FacturaAplicacion {
 	}
 
 	public List<ItemRest> cargarItems(List<ItemRest> items) {
-
-		List<ItemRest> item = new ArrayList<ItemRest>();
-
+//		List<ItemRest> item = new ArrayList<ItemRest>();
 		for (ItemRest i : items) {
-			if (i.getProducto().getId().equalsIgnoreCase(i.getId())) {
-				i.setTotal(i.getCantidad() * i.getProducto().getValor());
-				item.add(i);
-			}
+			i.setId(UUID.randomUUID().toString());
+			i.setProducto(this.cargarProducto(i.getProducto()));
+			i.setTotal(i.getCantidad() * i.getProducto().getValor());
+//			item.add(i);
 		}
 
-		return item;
+		return items;
+	}
+
+	public ProductoRest cargarProducto(ProductoRest producto) {
+		return productoMapper.apitransformarDominioParaDto(productoService.buscarPorId(producto.getId()));
 	}
 
 	public Double calcularFactura(List<ItemRest> item) {

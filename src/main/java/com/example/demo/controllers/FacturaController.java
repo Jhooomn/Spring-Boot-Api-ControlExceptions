@@ -40,7 +40,6 @@ public class FacturaController {
 
 	@PostMapping
 	public void saveFactura(@RequestBody FacturaRest factura) {
-		factura.setId(UUID.randomUUID().toString());
 		facturaAplicacion.addFactura(factura);
 	}
 

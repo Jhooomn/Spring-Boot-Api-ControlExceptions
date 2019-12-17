@@ -10,10 +10,6 @@ import javax.persistence.Table;
 @Table(name = "Productos")
 public class ProductoDto extends BaseEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private Double valor;
 

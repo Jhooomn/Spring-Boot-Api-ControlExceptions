@@ -9,10 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Items")
 public class ItemDto extends BaseEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	private int cantidad;
 	private Double total;
 
