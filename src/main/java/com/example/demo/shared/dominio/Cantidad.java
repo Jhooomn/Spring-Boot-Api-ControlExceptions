@@ -1,5 +1,7 @@
 package com.example.demo.shared.dominio;
 
+import com.example.demo.exceptions.CantidadException;
+
 public class Cantidad {
 
 	private final int value;
@@ -8,10 +10,10 @@ public class Cantidad {
 		try {
 			this.value = cantidad;
 			if (value < 0) {
-				throw new RuntimeException();
+				throw new CantidadException();
 			}
 		} catch (NullPointerException e) {
-			throw new RuntimeException();
+			throw new CantidadException();
 		}
 
 	}

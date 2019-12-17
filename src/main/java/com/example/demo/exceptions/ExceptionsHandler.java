@@ -27,6 +27,18 @@ public class ExceptionsHandler {
 		return UUID.randomUUID().toString();
 	}
 
+	@ExceptionHandler(CantidadException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode cantidadException(CantidadException e) {
+		
+		ErrorCode ec = new ErrorCode();
+		
+		ec.setCodigo(this.getId());
+		ec.setMensaje(e.getMessage());
+		logError(ec, e);
+		return ec;
+	}
+
 	@ExceptionHandler(RegistroNoEncontradoException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorCode registroException(RegistroNoEncontradoException e) {
