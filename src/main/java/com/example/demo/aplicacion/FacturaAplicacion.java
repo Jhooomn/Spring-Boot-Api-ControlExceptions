@@ -60,20 +60,36 @@ public class FacturaAplicacion {
 	// ***********************************************************************************************
 
 	public void addFactura(FacturaRest factura) {
-		factura.setItem(this.getITemId(factura.getItem()));
+//		factura.setItem(this.getITemId(factura.getItem()));
 
-		facturaService.guardar(facturaMapper.transformarDtoParaDominio(factura));
+		FacturaRest fa = factura;
+
+		fa.setItem(this.cargarItems(fa.getItem()));
+		fa.setTotal(this.calcularFactura(fa.getItem()));
+
+		facturaService.guardar(facturaMapper.transformarDtoParaDominio(fa));
 	}
 
-	public List<ItemRest> getITemId(List<ItemRest> items) {
-		List<ItemRest> item_id = new ArrayList<ItemRest>();
+	public List<ItemRest> cargarItems(List<ItemRest> items) {
+
+		List<ItemRest> item = new ArrayList<ItemRest>();
+
 		for (ItemRest i : items) {
-			i.setId(UUID.randomUUID().toString());
-			i.setTotal(i.getProducto().getValor() * i.getCantidad());
-			item_id.add(i);
+			if (i.getProducto().getId().equalsIgnoreCase(i.getId())) {
+				i.setTotal(i.getCantidad() * i.getProducto().getValor());
+				item.add(i);
+			}
 		}
 
-		return item_id;
+		return item;
+	}
+
+	public Double calcularFactura(List<ItemRest> item) {
+		double total = 0.0;
+		for (ItemRest i : item) {
+			total = total + (i.getCantidad() * i.getProducto().getValor());
+		}
+		return total;
 	}
 
 	// ***********************************************************************************************
