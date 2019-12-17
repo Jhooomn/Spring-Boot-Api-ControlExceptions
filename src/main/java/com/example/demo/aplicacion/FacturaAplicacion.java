@@ -2,6 +2,7 @@ package com.example.demo.aplicacion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,51 +60,20 @@ public class FacturaAplicacion {
 	// ***********************************************************************************************
 
 	public void addFactura(FacturaRest factura) {
-		// Obtener todos los codigos de los items
-		List<String> codigos = cargarCodigos(factura.getItem());
-		// Obtener todos los productos
-		List<ProductoRest> productos = cargarProductos(codigos);
-		// Obtener la información completa de los items
-		cargarItems(productos, factura.getItem());
-		// Obtener el valor de la Factura
-		Double total = calcularValorFactura(factura);
-		factura.setTotal(total);
+		factura.setItem(this.getITemId(factura.getItem()));
+
 		facturaService.guardar(facturaMapper.transformarDtoParaDominio(factura));
 	}
 
-	public List<String> cargarCodigos(List<ItemRest> items) {
-		List<String> codigos = new ArrayList<>();
-		for (ItemRest item : items) {
-			codigos.add(item.getProducto().getId());
+	public List<ItemRest> getITemId(List<ItemRest> items) {
+		List<ItemRest> item_id = new ArrayList<ItemRest>();
+		for (ItemRest i : items) {
+			i.setId(UUID.randomUUID().toString());
+			i.setTotal(i.getProducto().getValor() * i.getCantidad());
+			item_id.add(i);
 		}
-		return codigos;
-	}
 
-	public List<ItemRest> cargarItems(List<ProductoRest> productos, List<ItemRest> factura_items) {
-		List<ItemRest> items = new ArrayList<>();
-
-		for (ProductoRest p : productos) {
-			for (ItemRest i : factura_items) {
-				if (i.getProducto().getId().equalsIgnoreCase(p.getId())) {
-					i.setProducto(p);
-					i.setTotal(i.getCantidad() * p.getValor());
-					items.add(i);
-				}
-			}
-		}
-		return items;
-	}
-
-	public List<ProductoRest> cargarProductos(List<String> codigo) {
-		return productoMapper.apitransformarListDominioParaDto(productoService.buscarTodos());
-	}
-
-	public Double calcularValorFactura(FacturaRest factura) {
-		Double total = 0.0;
-		for (ItemRest item : factura.getItem()) {
-			total = total + item.getTotal();
-		}
-		return total;
+		return item_id;
 	}
 
 	// ***********************************************************************************************

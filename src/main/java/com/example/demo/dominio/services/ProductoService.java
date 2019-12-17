@@ -10,7 +10,7 @@ import com.example.demo.shared.dominio.Id;
 // Productos de dominio 
 @Component
 public interface ProductoService {
-	public List<Producto> buscarPorIds(List<Id> codigos);
+	public List<Producto> buscarPorIds(List<String> codigos);
 
 	public List<Producto> buscarTodos();
 
