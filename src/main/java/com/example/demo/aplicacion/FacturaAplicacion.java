@@ -2,6 +2,7 @@ package com.example.demo.aplicacion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dominio.model.Factura;
 import com.example.demo.dominio.services.FacturaService;
+import com.example.demo.dominio.services.ProductoService;
 import com.example.demo.exceptions.EditadoHandlerException;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.infraestructura.dto.FacturaDto;
+import com.example.demo.infraestructura.dto.FacturaRest;
 import com.example.demo.infraestructura.dto.ItemDto;
+import com.example.demo.infraestructura.dto.ItemRest;
 import com.example.demo.infraestructura.dto.ProductoDto;
+import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.FacturaMapper;
+import com.example.demo.infraestructura.mapper.ProductoMapper;
 import com.example.demo.infraestructura.repository.database.FacturaRepository;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 
@@ -31,101 +38,74 @@ public class FacturaAplicacion {
 	@Autowired
 	FacturaRepository facturaRepository;
 
-	@Autowired
-	ProductoRepository productoRepository;
-
-	// 
+	//
 	@Autowired
 	FacturaService facturaService;
 	@Autowired
 	FacturaMapper facturaMapper;
-	
 	@Autowired
-	
+	ProductoService productoService;
+	@Autowired
+	ProductoMapper productoMapper;
+
 	//
-	@GetMapping()
-	public List<FacturaDto> getFacturas() {
-//		return facturaRepository.findAll();
-		return facturaService.buscarTodos().stream().map(factura -> facturaMapper.apitransformarDominioParaDto(factura))
-				.collect(Collectors.toList());
+	public List<FacturaRest> getFacturas() {
+		return facturaMapper.transformarListDominioParaDto(facturaService.buscarTodos());
 	}
 
-	@GetMapping("/{id}")
-	public FacturaDto getFactura(@PathVariable String id) {
-//		return facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
-		return facturaMapper.apitransformarDominioParaDto(facturaService.buscarPorId(id));
+	public FacturaRest getFactura(String id) {
+		return facturaMapper.transformarDominioParaDto(facturaService.buscarPorId(id));
 	}
 
 	// ***********************************************************************************************
 
-	@PostMapping()
-	public void addFactura(@RequestBody FacturaDto factura) {
-		// Obtener todos los codigos de los items
-		List<String> codigos = cargarCodigos(factura.getItem());
-		// Obtener todos los productos
-		List<ProductoDto> productos = cargarProductos(codigos);
-		// Obtener la información completa de los items
-		cargarItems(productos, factura.getItem());
-		// Obtener el valor de la Factura
-		Double total = calcularValorFactura(factura);
-		factura.setTotal(total);
-		facturaRepository.save(factura);
+	public void addFactura(FacturaRest factura) {
+//		factura.setItem(this.getITemId(factura.getItem()));
+
+		FacturaRest fa = factura;
+		fa.setId(UUID.randomUUID().toString());
+		fa.setItem(this.cargarItems(fa.getItem()));
+		fa.setTotal(this.calcularFactura(fa.getItem()));
+
+		facturaService.guardar(facturaMapper.transformarDtoParaDominio(fa));
 	}
 
-	public List<String> cargarCodigos(List<ItemDto> items) {
-		List<String> codigos = new ArrayList<>();
-		for (ItemDto item : items) {
-			codigos.add(item.getProducto().getId());
+	public List<ItemRest> cargarItems(List<ItemRest> items) {
+//		List<ItemRest> item = new ArrayList<ItemRest>();
+		for (ItemRest i : items) {
+			i.setId(UUID.randomUUID().toString());
+			i.setProducto(this.cargarProducto(i.getProducto()));
+			i.setTotal(i.getCantidad() * i.getProducto().getValor());
+//			item.add(i);
 		}
-		return codigos;
-	}
 
-	public List<ItemDto> cargarItems(List<ProductoDto> productos, List<ItemDto> factura_items) {
-		List<ItemDto> items = new ArrayList<>();
-
-		for (ProductoDto p : productos) {
-			for (ItemDto i : factura_items) {
-				if (i.getProducto().getId().equalsIgnoreCase(p.getId())) {
-					i.setProducto(p);
-					i.setTotal(i.getCantidad() * p.getValor());
-					items.add(i);
-				}
-			}
-		}
 		return items;
 	}
 
-	public List<ProductoDto> cargarProductos(List<String> codigo) {
-
-		return productoRepository.findAllById(codigo);
-
+	public ProductoRest cargarProducto(ProductoRest producto) {
+		return productoMapper.apitransformarDominioParaDto(productoService.buscarPorId(producto.getId()));
 	}
 
-	public Double calcularValorFactura(FacturaDto factura) {
-		Double total = 0.0;
-		for (ItemDto item : factura.getItem()) {
-			total = total + item.getTotal();
+	public Double calcularFactura(List<ItemRest> item) {
+		double total = 0.0;
+		for (ItemRest i : item) {
+			total = total + (i.getCantidad() * i.getProducto().getValor());
 		}
-		System.out.println(total);
 		return total;
 	}
 
 	// ***********************************************************************************************
 
-	@PutMapping()
-	public void editFactura(@RequestBody FacturaDto factura) {
-		facturaRepository.findById(factura.getId()).orElseThrow(() -> new EditadoHandlerException());
-		facturaRepository.save(factura);
+	public void editFactura(FacturaRest factura) {
+		facturaService.buscarPorId(factura.getId());
+		facturaService.editar(facturaMapper.transformarDtoParaDominio(factura));
 	}
 
-	@DeleteMapping("/{id}")
-	public void deleteFactura(@PathVariable String id) {
-//		facturaRepository.findById(id).orElseThrow(() -> new RegistroNoEncontradoException());
-//		facturaRepository.deleteById(id);
+	public void deleteFactura(String id) {
 		facturaService.eliminarPorId(id);
 	}
 
-	@DeleteMapping
+	// Solo para pruebas, no es utilizado en producción
 	public void deleteAll() {
 		facturaRepository.deleteAll();
 	}

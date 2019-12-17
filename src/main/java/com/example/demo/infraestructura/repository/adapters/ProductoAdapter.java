@@ -25,10 +25,10 @@ public class ProductoAdapter implements ProductoService {
 	ProductoMapper productoMapper;
 
 	@Override
-	public List<Producto> buscarPorIds(List<Id> codigos) {
-		return productoRepository
-				.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())).stream()
-				.map(producto -> productoMapper.transformarDtoParaDominio(producto)).collect(Collectors.toList());
+	public List<Producto> buscarPorIds(List<String> codigos) {
+		return productoRepository.findAllById(codigos.stream().map(codigo -> codigo).collect(Collectors.toList()))
+				.stream().map(producto -> productoMapper.transformarDtoParaDominio(producto))
+				.collect(Collectors.toList());
 	}
 
 	@Override
