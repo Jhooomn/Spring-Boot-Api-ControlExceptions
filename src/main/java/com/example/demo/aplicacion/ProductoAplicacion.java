@@ -2,26 +2,20 @@ package com.example.demo.aplicacion;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.example.demo.dominio.model.Producto;
 import com.example.demo.dominio.services.ProductoService;
-import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
-import com.example.demo.infraestructura.repository.database.ProductoRepository;
 
-@Component
 public class ProductoAplicacion {
 
-	@Autowired
 	ProductoService productoService;
 
-	@Autowired
 	ProductoMapper productoMapper;
+
+	public ProductoAplicacion(ProductoService productoService, ProductoMapper productoMapper) {
+		this.productoService = productoService;
+		this.productoMapper = productoMapper;
+	}
 
 	public void crear(ProductoRest p) {
 		if (p.getId() == null) {
