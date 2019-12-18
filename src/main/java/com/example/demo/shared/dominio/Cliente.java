@@ -10,10 +10,10 @@ public class Cliente {
 
 		try {
 			this.nombre = valor;
-			if ((valor.length() == 0) || (!nombre.matches("[A-Z].*"))) {
+			if (!nombre.matches("[A-Z].*")) {
 				throw new NombreCaracterException();
-			}
 
+			}
 		} catch (NullPointerException e) {
 			throw new NombreCaracterException();
 		}
