@@ -2,14 +2,10 @@ package com.example.demo.aplicacion;
 
 import java.util.List;
 import java.util.UUID;
-
-import org.springframework.stereotype.Component;
-
 import com.example.demo.dominio.services.ProductoService;
 import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 
-@Component
 public class ProductoAplicacion {
 
 	ProductoService productoService;

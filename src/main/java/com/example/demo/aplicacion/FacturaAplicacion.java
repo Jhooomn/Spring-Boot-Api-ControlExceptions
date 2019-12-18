@@ -2,7 +2,6 @@ package com.example.demo.aplicacion;
 
 import java.util.List;
 import java.util.UUID;
-import org.springframework.stereotype.Component;
 import com.example.demo.dominio.services.FacturaService;
 import com.example.demo.dominio.services.ProductoService;
 import com.example.demo.infraestructura.dto.FacturaRest;
@@ -12,7 +11,6 @@ import com.example.demo.infraestructura.mapper.FacturaMapper;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 import com.example.demo.infraestructura.repository.database.FacturaRepository;
 
-@Component
 public class FacturaAplicacion {
 
 	FacturaRepository facturaRepository;

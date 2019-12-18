@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.aplicacion.ProductoAplicacion;
+import com.example.demo.dominio.services.ProductoService;
 import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 
@@ -21,8 +22,11 @@ import com.example.demo.infraestructura.mapper.ProductoMapper;
 @RequestMapping("/producto")
 public class ProductoController {
 
-	@Autowired
 	ProductoAplicacion productoAplicacion;
+
+	public ProductoController(@Autowired ProductoService productoService, @Autowired ProductoMapper productoMapper) {
+		this.productoAplicacion = new ProductoAplicacion(productoService, productoMapper);
+	}
 
 	@GetMapping
 	public List<ProductoRest> getProductos() {

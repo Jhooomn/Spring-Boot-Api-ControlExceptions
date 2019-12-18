@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,18 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.aplicacion.FacturaAplicacion;
 import com.example.demo.dominio.services.FacturaService;
+import com.example.demo.dominio.services.ProductoService;
 import com.example.demo.infraestructura.dto.FacturaRest;
 import com.example.demo.infraestructura.mapper.FacturaMapper;
+import com.example.demo.infraestructura.mapper.ProductoMapper;
+import com.example.demo.infraestructura.repository.database.FacturaRepository;
 
 @RestController
 @RequestMapping("/factura")
 public class FacturaController {
 
-	@Autowired
 	FacturaAplicacion facturaAplicacion;
 
-	@Autowired
-	FacturaMapper facturaMaper;
+	public FacturaController(@Autowired FacturaRepository facturaRepository, @Autowired FacturaService facturaService,
+			@Autowired FacturaMapper facturaMapper, @Autowired ProductoService productoService,
+			@Autowired ProductoMapper productoMapper) {
+		this.facturaAplicacion = new FacturaAplicacion(facturaRepository, facturaService, facturaMapper,
+				productoService, productoMapper);
+	}
 
 	@GetMapping
 	public List<FacturaRest> getFacturas() {
