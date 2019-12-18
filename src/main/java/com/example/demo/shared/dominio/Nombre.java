@@ -5,10 +5,6 @@ import com.example.demo.exceptions.NombreCaracterException;
 public class Nombre {
 	private final String value;
 
-	public String getValue() {
-		return value;
-	}
-
 	public Nombre(String nombre) {
 		try {
 			this.value = nombre;
@@ -19,6 +15,10 @@ public class Nombre {
 		} catch (NullPointerException e) {
 			throw new NombreCaracterException();
 		}
+	}
+
+	public String getValue() {
+		return value;
 	}
 
 }
