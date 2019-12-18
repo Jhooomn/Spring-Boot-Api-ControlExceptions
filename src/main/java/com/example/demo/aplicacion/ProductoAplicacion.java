@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.dominio.model.Producto;
 import com.example.demo.dominio.services.ProductoService;
 import com.example.demo.infraestructura.dto.ProductoDto;
+import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 
@@ -19,24 +20,30 @@ public class ProductoAplicacion {
 	@Autowired
 	ProductoService productoService;
 
-	public void crear(Producto p) {
-		productoService.guardar(p);
+	@Autowired
+	ProductoMapper productoMapper;
+
+	public void crear(ProductoRest p) {
+		if (p.getId() == null) {
+			p.setId(UUID.randomUUID().toString());
+		}
+		productoService.guardar(productoMapper.apitransformarDtoParaDominio(p));
 	}
 
-	public List<Producto> listar() {
-		return productoService.buscarTodos();
+	public List<ProductoRest> listar() {
+		return productoMapper.apitransformarListDominioParaDto(productoService.buscarTodos());
 	}
 
-	public Producto buscar(String codigo) {
-		return productoService.buscarPorId(codigo);
+	public ProductoRest buscar(String codigo) {
+		return productoMapper.apitransformarDominioParaDto(productoService.buscarPorId(codigo));
 	}
 
 	public void eliminar(String codigo) {
 		productoService.eliminarPorId(codigo);
 	}
 
-	public void actualizar(Producto p) {
-		productoService.editar(p);
+	public void actualizar(ProductoRest p) {
+		productoService.editar(productoMapper.apitransformarDtoParaDominio(p));
 	}
 
 }
